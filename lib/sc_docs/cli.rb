@@ -5,11 +5,15 @@ require 'sc_docs/generator'
 module ScDocs
   class CLI < Thor
 
-    class_option :update,     :aliases => ['-u'], :type => :boolean, :default => false,
+    class_option :update, :aliases => ['-u'], :type => :boolean, :default => false,
       :banner => "If input is a git repo, pull and rebase"
-    class_option :template,   :aliases => ['-t'], :type => :string,
-      :banner => "Path to jsdoc template (forces HTML output)"
-    class_option :verbose,    :aliases => ['-v'], :type => :boolean, :default => false
+    class_option :app_mode, :aliases => ['-a'], :type => :boolean, :default => false,
+      :banner => "Generates the Docs application. Otherwise, generates template-based docs"
+    class_option :template, :aliases => ['-t'], :type => :string, :default => "docs.sproutcore.com",
+      :banner => "Templates to use when generating docs; not valid when generating in app mode"
+    class_option :verbose, :aliases => ['-v'], :type => :boolean, :default => false
+    class_option :config_file, :aliases => ['-c'], :type => :string,
+      :banner => "jsdoc configuration file"
 
     desc "generate [DIRECTORIES...]", "Generate docs"
     method_option :output_dir, :aliases => ['-o'], :type => :string, :required => true,
@@ -39,9 +43,13 @@ module ScDocs
         @output_dir || options[:output_dir]
       end
 
+      def config_file
+        @config_file || options[:config_file]
+      end
+
       def generator(directories)
-        opts = options.merge(:output_dir => output_dir)
-        (opts[:template] ? HtmlGenerator : ScGenerator).new(directories, opts)
+        opts = options.merge(:output_dir => output_dir, :config_file => config_file)
+        (opts[:app_mode] ? ScGenerator : HtmlGenerator).new(directories, opts)
       end
 
       def update_repo(directories)
