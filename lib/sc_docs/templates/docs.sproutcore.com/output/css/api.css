@@ -390,6 +390,7 @@ a, a:visited {
 .class p {
   line-height: 1.6em;
   margin: 8px 0;
+  max-width: 800px;
 }
 
 .class pre {
@@ -476,7 +477,7 @@ a, a:visited {
   margin-right: 6px;
 }
 
-.class-member .details .parameters .type, .class-member .details .returns .type {
+.class-member .details span.type {
   font-style: italic;
   margin-right: 6px;
 }

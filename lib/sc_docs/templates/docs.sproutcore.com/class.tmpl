@@ -250,7 +250,7 @@
                     <div class="description">
                       {+resolveLinks(member.desc)+}
                       <if test="member.srcFile != data.srcFile">
-                        <span class="definedin">Defined in: </span> {+new Link().toSrc(member.srcFile)+}.
+                        <div class="definedin">Defined in {+new Link().toSrc(member.srcFile)+}.</div>
                       </if>
                       <if test="member.author"><br /><i>Author: </i>{+member.author+}.</if>
                     </div>
@@ -278,7 +278,7 @@
                     <div class="type">
                       <h4>Type</h4>
                       <div>
-                        {+new Link().toSymbol(member.type)+}
+                        <span class="type">{+new Link().toSymbol(member.type)+}</span>
                       </div>
                     </div>
                   </if>
@@ -402,7 +402,8 @@
                       <h4>Returns</h4>
                       <div>
                         <for each="item" in="member.returns">
-                          <span class="type">{+ new Link().toSymbol(item.type) +} &mdash;</span>
+                          <span class="type">{+ new Link().toSymbol(item.type) +}</span>
+                          <if test="item.type && item.desc"> &mdash; </if>
                           <span class="description">{+resolveLinks(item.desc)+}</span>
                         </for>
                       </div>
@@ -415,10 +416,9 @@
                       <div>
                         <dl>
                         <for each="item" in="member.exceptions">
-                          <dt>
-                            {+((item.type)?"<span class=\"light fixedFont\">"+(new Link().toSymbol(item.type))+"</span> " : "")+} <b>{+item.name+}</b>
-                          </dt>
-                          <dd>{+resolveLinks(item.desc)+}</dd>
+                          <span class="type">{+ new Link().toSymbol(item.type) +}</span>
+                          <if test="item.type && item.desc"> &mdash; </if>
+                          <span class="description">{+resolveLinks(item.desc)+}</span>
                         </for>
                         </dl>
                       </div>
