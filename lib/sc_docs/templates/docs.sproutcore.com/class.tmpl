@@ -117,45 +117,56 @@
           var ownProperties = data.properties.filter(function($){return $.memberOf == data.alias && !$.isNamespace}).sort(makeSortby("name")),
               classProperties = ownProperties.filter(function($){return !$.alias.match(/#/)}),
               instanceProperties = ownProperties.filter(function($){return $.alias.match(/#/)}),
-              propertyGroups = [["Static", classProperties], ["Instance", instanceMethods]];
+              propertyGroups = [["Static", classProperties], ["Instance", instanceProperties]];
         !}
         <if test="data.properties.length">
-          <for each="group" in="propertyGroups">
-            {! var name = group[0], properties = group[1]; !}
-            <if test="properties && properties.length">
-              <div class="overview properties-overview">
-                <h2>{+name+} Property Overview</h2>
+          <div class="overview properties-overview">
+            <h2>Property Overview</h2>
+            <for each="group" in="propertyGroups">
+              {! var name = group[0], properties = group[1]; !}
+              <if test="properties && properties.length">
+                <div class="group properties-group">
+                  <h3>{+name+} Properties</h3>
+                  <ul>
+                    <for each="member" in="properties">
+                      <li>
+                        <if test="member.isStatic && member.memberOf != '_global_'">{+member.memberOf+}.</if>{+new Link().toSymbol(member.alias).withText(member.name)+}
+                      </li>
+                    </for>
+                  </ul>
+                </div>
+              </if>
+            </for>
 
-                <ul>
-                  <for each="member" in="properties">
-                    <li>
-                      <if test="member.isStatic && member.memberOf != '_global_'">{+member.memberOf+}.</if>{+new Link().toSymbol(member.alias).withText(member.name)+}
-                    </li>
+            <if test="data.inheritsFrom.length">
+            {!
+              var borrowedMembers = data.properties.filter(function($) {return $.memberOf != data.alias}),
+                  contributors = [];
+              borrowedMembers.map(function($) { if (contributors.indexOf($.memberOf) === -1) contributors.push($.memberOf) });
+            !}
+              <if test="contributors.length">
+                <div class="inherits">
+                  <h3>Inherited Properties</h3>
+                  <for each="contributor" in="contributors">
+                    <div class="inherit">
+                      <h4>from {+new Link().toSymbol(contributor)+}</h4>
+
+                      <ul>
+                        {!
+                          var inheritedProperties = borrowedMembers.filter(function($) { return $.memberOf == contributor })
+                              .sort(makeSortby("name"))
+                              .map(function($) { return new Link().toSymbol($.alias).withText($.name) })
+                        !}
+                        <for each="property" in="inheritedProperties">
+                          <li>{+property+}</li>
+                        </for>
+                      </ul>
+                    </div>
                   </for>
-                </ul>
-              </div>
+                </div>
+              </if>
             </if>
-          </for>
-
-          <if test="data.inheritsFrom.length">
-          {!
-            var borrowedMembers = data.properties.filter(function($) {return $.memberOf != data.alias}),
-                contributors = [];
-            borrowedMembers.map(function($) { if (contributors.indexOf($.memberOf) === -1) contributors.push($.memberOf) });
-          !}
-            <if test="contributors.length">
-              <dl class="inheritsList">
-                <for each="contributor" in="contributors">
-                  <dt>Properties borrowed from class {+new Link().toSymbol(contributor)+}: </dt>
-                  <dd>{+ borrowedMembers.filter(function($) { return $.memberOf == contributor })
-                        .sort(makeSortby("name"))
-                        .map(function($) { return new Link().toSymbol($.alias).withText($.name) })
-                        .join(", ") +}
-                  </dd>
-                </for>
-              </dl>
-            </if>
-          </if>
+          </div>
         </if>
 
 <!-- ============================== methods summary ======================== -->
@@ -163,25 +174,32 @@
         var ownMethods = data.methods.filter(function($){return $.memberOf == data.alias && !$.isNamespace}).sort(makeSortby("name")),
             classMethods = ownMethods.filter(function($){return !$.alias.match(/#/)}),
             instanceMethods = ownMethods.filter(function($){return $.alias.match(/#/)}),
-            methodGroups = [["Static", classMethods], ["Instance", instanceMethods ]];
+            methodGroups = [["Static", classMethods], ["Instance", instanceMethods]];
       !}
-      <for each="group" in="methodGroups">
-        {! var name = group[0], methods = group[1]; !}
-        <if test="methods.length">
-          <div class="overview methods-overview">
-            <h2>{+name+} Method Overview</h2>
-            <ul>
-            <for each="member" in="methods">
-              {!
-                var params = member.params,
-                    paramsText = params ? '(' + params.map(function($) { return $.name; }).join(', ') + ')' : '';
-              !}
-              <li>{+new Link().toSymbol(member.alias).withText(member.name.replace(/\^\d+$/, '')) +}<span class="params">{+ paramsText +}</span></li>
-            </for>
-            </ul>
-          </div>
-        </if>
-      </for>
+      <if test="classMethods.length > 0 || instanceMethods.length > 0">
+        <div class="overview methods-overview">
+          <h2>Method Overview</h2>
+
+          <for each="group" in="methodGroups">
+            {! var name = group[0], methods = group[1]; !}
+              <if test="methods.length">
+                <h3>{+name+} Methods</h3>
+
+                <div class="group methods-group">
+                  <ul>
+                    <for each="member" in="methods">
+                      {!
+                        var params = member.params,
+                            paramsText = params ? '(' + params.map(function($) { return $.name; }).join(', ') + ')' : '';
+                      !}
+                      <li><if test="member.isStatic && member.memberOf != '_global_'">{+member.memberOf+}.</if>{+new Link().toSymbol(member.alias).withText(member.name.replace(/\^\d+$/, '')) +}<span class="params">{+ paramsText +}</span></li>
+                    </for>
+                  </ul>
+                </div>
+              </if>
+          </for>
+        </div>
+      </if>
 <!-- ============================== events summary ======================== -->
       <if test="data.events.length">
         {! var ownEvents = data.events.filter(function($){return $.memberOf == data.alias && !$.isNamespace}).sort(makeSortby("name")); !}
