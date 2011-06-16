@@ -55,25 +55,11 @@ body {
   color: #444;
   font: 12px/1.5 "Helvetica Neue", Arial, sans-serif;
 }
+
 .container {
   width: 960px;
   margin: 0 auto;
 }
-
-/*
-html.js .container {
-  opacity: 0;
-}
-
-html.ready .container {
-  opacity: 1;
-  -webkit-transition: all 1s ease-in-out;
-  -moz-transition: all 1s ease-in-out;
-  -o-transition: all 1s ease-in-out;
-  -ms-transition: all 1s ease-in-out;
-  transition: all 1s ease-in-out;
-}
-*/
 
 i {
   font-style: italic;
@@ -101,16 +87,6 @@ header[role="banner"] {
   -moz-box-shadow: 0 1px 9px rgba(0, 0, 0, 0.5), inset 0 -1px 0 rgba(255, 255, 255, 0.2);
   box-shadow: 0 1px 9px rgba(0, 0, 0, 0.5), inset 0 -1px 0 rgba(255, 255, 255, 0.2);
 }
-
-/*
-html.js header[role="banner"] {
-  top: -5em;
-}
-
-html.ready header[role="banner"] {
-  top: 0;
-}
-*/
 
 #logo,
 [role="banner"] nav,
@@ -166,15 +142,6 @@ a:visited {
 	text-decoration: none;
 }
 
-/* .blue a:link,*/
-/* .blue a:visited {*/
-	/* color: #4098e1;*/
-/* }*/
-
-/* .blue a:hover {*/
-	/* color: #3972a0;*/
-/* }*/
-
 /* Search */
 
 #list input {
@@ -212,7 +179,6 @@ a:visited {
 /* API Docs */
 #docs section {
   border: 0;
-  
 }
 
 #docs #list {
@@ -246,6 +212,11 @@ section#list header {
 #docs section div#clear {
   height: 52px;
 }
+
+#list header {
+  border-bottom: 1px solid #000;
+}
+
 #list h2 {
   text-align: center;
   font-weight: bold;
@@ -288,11 +259,16 @@ section#list header {
 #list .odd a {
   background-color: #f7f7f7;
 }
+
 #docs section div.fineprint {
+  border-top: 1px solid #ddd;
+  color: #999;
   position: relative;
   margin-top: 25px;
+  padding: 25px 0 10px;
 }
-#docs #documentation {
+
+#docs .documentation {
   position: absolute;
   top: 50px;
   bottom: 0;
@@ -302,13 +278,12 @@ section#list header {
   padding-right: 30px;
   overflow: auto;
 }
+
 #docs div[role="main"] {
   padding-top: 0;
   height: 100%;
 }
-#docs header {
-  border-bottom: 1px solid #000;
-}
+
 #docs footer {
   position:fixed;
 	width: 274px;
@@ -331,8 +306,44 @@ section#list header {
   height: 15px;
   width: 165px;
   }
-/* Class Docs */
- .classTitle {
+
+
+h2 a {
+  color: #62C439;
+}
+
+
+h3 {
+  font-size: 14px;
+  font-weight: bold;
+  margin: 10px 0;
+}
+
+h1 {
+  font-weight: bold;
+  font-size: 18px;
+  margin: 10px 0;
+}
+
+h2 {
+  font-weight: bold;
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+a, a:visited {
+ color: #4AA021;
+}
+
+
+/* List
+--------------------------------------------- */
+
+
+/* Documentation
+--------------------------------------------- */
+
+.documentation h1 {
   font-weight: bold;
   font-size: 24px;
   margin: 0 0 20px -20px;
@@ -340,99 +351,160 @@ section#list header {
   background: #fff url(/img/apidocs.png) no-repeat 31px 31px;
   padding: 25px 57px 0px 65px;
   border-left: 1px solid #B2B2B2;
-} 
-.classes {
-  float: left;
-  width: 40%;
-  margin: 0 50px 0 0;
 }
-.classname {
-  margin-top: 15px;
-  margin-bottom: 0;
+
+
+/* Class List
+--------------------------------------------- */
+
+.class-list .class-overview {
+  margin: 25px 0;
 }
-#documentation h2 {
-  width: 40%;
+
+.class-list .class-overview h2 {
   font-size: 18px;
-  margin-top: 25px;
+  margin-bottom: 6px;
 }
-#documentation h3 {
-  font-size: 14px;
-  font-weight: bold;
-  margin: 10px 0;
+
+.class-list .class-overview h2 a:hover {
+  color: #4b962b;
 }
-#documentation h2 a{
-  color: #62C439;
+
+.class-list .class-overview p {
+  margin-left: 15px;
 }
-h1 {
-  font-weight: bold;
+
+
+/* Class
+--------------------------------------------- */
+
+.class header h1 span, .class header h2 span {
+  color: #999;
+}
+
+.class header h2 {
+  color: #999;
+  font-size: 16px;
+}
+
+.class p {
+  line-height: 1.6em;
+  margin: 8px 0;
+}
+
+.class pre {
+  margin: 15px 20px;
+}
+
+.class .class-description h2 {
+  border-bottom: 1px solid #ddd;
+  color: #444;
   font-size: 18px;
-  margin: 10px 0;
+  margin: 30px 0 15px;
 }
-h2 {
-  font-weight: bold;
-  font-size: 24px;
-  margin-bottom: 20px;
+
+.overview {
+  margin-top: 20px;
 }
-#properties {
-  overflow: hidden;
+
+.overview h2 {
+  border-bottom: 1px solid #ddd;
+  font-size: 18px;
 }
-.methods , #properties ul{
+
+.overview ul {
   list-style-image: url(/img/docbullet.png);
   margin-left: 20px;
   margin-bottom: 20px;
 }
-a, a:visited {
- color: #4AA021;
-}
-.methodname, .property {
-  font-weight: bold;
-  font-size: 16px;
-}
-.description {
-  margin-bottom: 8px;
-}
-dt.heading {
-  float: none;
-  font-weight: bold;
-  font-size: 14px;
-  background-image: none;
-  padding-left: 0;
-}
-dt, .returns dd {
-  clear: left;
-  float: left;
-  background: url(/img/docbullet.png) no-repeat left center ;
-  padding-left: 10px;
-}
-dt .light {
-  font-weight: bold;
-}
-dd {
-  float: left;
-  margin-left: 10px;
-}
-.parameters, .returns, .inheritsList, .detailList{
-  padding: 20px;
-  border: 1px solid #D7E3D1;
-  background-color: #F0F6EC;
-  margin: 10px 0 10px 0;
-  overflow: hidden;
-}
-.fixedFont {
-  margin-top: 20px;
-}
-.definedin,.extends {
-  font-style: italic;
-  display: block;
-  margin: 10px 0;
-}
-.definedin a, .extends a {
-  font-style: normal;
+
+.overview li {
+  margin-top: 8px;
 }
 
-#documentation p {
-  margin: 10px 0 10px 0;
+.overview a {
+  font-weight: bold;
 }
+
+.methods-overview .params {
+  color: #888;
+  padding-left: 2px;
+}
+
+.methods, .properties {
+  margin-top: 30px;
+}
+
+.class-member > h3 {
+  color: #3A9BEE;
+  font-size: 16px;
+}
+
+.class-member h3 .params {
+  color: #777;
+}
+
+.class .details {
+  padding: 0 30px;
+}
+
+.class-member {
+  border-bottom: 1px solid #ddd;
+  clear: both;
+  margin: 10px 0;
+  overflow: hidden;
+  padding-bottom: 20px;
+}
+
+.methods .class-member:last-child, .properties .class-member:last-child {
+  border-bottom: 0 none;
+}
+
+.class-member .description h2, .class-member h4 {
+  border-bottom: 1px solid #eee;
+  font-size: 14px;
+  font-weight: bold;
+  margin: 8px 0;
+  padding-bottom: 2px;
+}
+
+.class-member .details > div {
+  overflow: hidden;
+}
+
+.class-member .details .parameters dt {
+  margin-right: 6px;
+}
+
+.class-member .details .parameters .type, .class-member .details .returns .type {
+  font-style: italic;
+  margin-right: 6px;
+}
+
+.class-member .details .token {
+  background: #eee;
+  color: #777;
+}
+
+.class-member .parameters dl {
+  margin: 12px;
+}
+
+.class-member .parameters dt {
+  margin-bottom: 5px;
+}
+
+.class-member .details dt {
+  clear: left;
+  color: #555;
+  float: left;
+  font-weight: bold;
+}
+
+.class-member .details dd {
+  float: left;
+}
+
 #documentation ul {
   list-style-type: square;
 }
@@ -440,24 +512,15 @@ dd {
   list-style-type: decimal;
 
 }
-#documentation ol li , #documentation ul li {
-  margin-left: 18px;
-  margin-top: 10px;
-}
-code {
-/*   padding: 3px;*/
-/*   color: #fff;*/
-/*   background: #000;*/
-  background: rgba(0, 0, 0, 0.75);
-/*   -webkit-border-radius: 4px;*/
-/*   -moz-border-radius: 4px;*/
-/*   border-radius: 4px;*/
-/*   -webkit-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.4), inset 0 1px 4px #000;*/
-/*   -moz-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.4), inset 0 1px 4px #000;*/
-/*   box-shadow: 0 1px 0 rgba(255, 255, 255, 0.4), inset 0 1px 4px #000;*/
-/*   white-space: pre;*/
-/*   white-space: pre-wrap;*/
-/*   word-wrap: break-word;*/
+
+code, .token {
+  padding: 2px 4px;
+  background: #ddd;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  color: #444;
+  margin: 0 1px;
 }
 /* Buttons */
 
@@ -592,8 +655,7 @@ samp {
 pre {
   padding: 12px;
   color: #fff;
-  background: #000;
-  background: rgba(0, 0, 0, 0.75);
+  background: #333;
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
   border-radius: 4px;
@@ -605,14 +667,13 @@ pre {
   word-wrap: break-word;
 }
 
-pre code { background: none; }
-pre code, code { color: #fff;}
+pre code { background: none; color: #fff; }
 pre code .comment, code .comment { color: #726D73; }
-pre code .const, pre.code .constant, code .const { color: #585CF6; }
+pre code .const, pre.code .constant { color: #585CF6; }
 pre code .symbol , code .symbol { color: #C5060B; }
-pre code .class, pre code .number, code .number { color: #DA7E64; }
-pre code .variable, pre code .this, code .variable { color: #889AB3; }
-pre code .string , code .string { color: #A0AB82; }
-pre code .keyword , code .keyword{ color: #D7B583; }
+pre code .class, pre code .number { color: #DA7E64; }
+pre code .variable, pre code .this { color: #889AB3; }
+pre code .string { color: #A0AB82; }
+pre code .keyword { color: #D7B583; }
 pre code .regexp code .regexp { color: #EEC981; }
 
