@@ -469,6 +469,10 @@ a, a:visited {
   padding-bottom: 2px;
 }
 
+.class-member .description span.package {
+  color: #3A9BEE;
+}
+
 .class-member .details > div {
   overflow: hidden;
 }

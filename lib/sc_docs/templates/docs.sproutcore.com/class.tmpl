@@ -249,8 +249,8 @@
                   <if test="member.desc">
                     <div class="description">
                       {+resolveLinks(member.desc)+}
-                      <if test="member.srcFile != data.srcFile">
-                        <div class="definedin">Defined in {+new Link().toSrc(member.srcFile)+}.</div>
+                      <if test="member.srcFile != data.srcFile || member.packageName != data.packageName">
+                        <div class="definedin">Defined in <span class="package">{+member.packageName+}</span> ({+new Link().toSrc(member.srcFile)+}).</div>
                       </if>
                       <if test="member.author"><br /><i>Author: </i>{+member.author+}.</if>
                     </div>
@@ -337,8 +337,8 @@
                   <if test="member.desc">
                     <div class="description">
                       {+resolveLinks(member.desc)+}
-                      <if test="member.srcFile != data.srcFile">
-                        <span class="definedin">Defined in: {+new Link().toSrc(member.srcFile)+}.</span>
+                      <if test="member.srcFile != data.srcFile || member.packageName != data.packageName">
+                        <div class="definedin">Defined in <span class="package">{+member.packageName+}</span> ({+new Link().toSrc(member.srcFile)+}).</div>
                       </if>
                       <if test="member.author"><br /><i>Author: </i>{+member.author+}.</if>
                     </div>
