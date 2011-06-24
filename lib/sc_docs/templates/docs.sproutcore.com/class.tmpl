@@ -241,6 +241,7 @@
             <h2>{+name+} Properties</h2>
             <for each="member" in="properties">
               <div class="class-member property">
+                 <a name="{+Link.symbolNameToLinkName(member)+}"> </a>
                 <h3>
                   <if test="member.isStatic && member.memberOf != '_global_'"><span class="light">{+member.memberOf+}.</span></if>{+member.name+}
                 </h3>
@@ -331,6 +332,7 @@
                   var params = member.params,
                       paramsText = params ? '(' + params.map(function($) { return $.name; }).join(', ') + ')' : '';
                 !}
+                 <a name="{+Link.symbolNameToLinkName(member)+}"> </a>
                 <h3><if test="name == 'Static' && member.memberOf != '_global_'">{+member.memberOf+}.</if>{+member.name.replace(/\^\d+$/, '')+}<span class="params">{+ paramsText +}</span></h3>
 
                 <div class="details">
